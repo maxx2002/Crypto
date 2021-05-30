@@ -1,12 +1,15 @@
 package com.example.cryptocurrencytracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -21,57 +24,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class PriceFragment extends Fragment {
+
+    private View view;
 
     CoinService mService;
 
     RadioButton coin2coin, money2coin, coin2money;
     MaterialSpinner fromSpinner,toSpinner;
     RadioGroup radioGroup;
-    Button btnConvert, price_button_graph;
-    ImageView coinImage, price_image_profile;
+    Button btnConvert;
+    ImageView coinImage;
     TextView toTextView;
 
     String[] money = {"USD", "EUR", "IDR"};
     String[] coin = {"BTC", "ETH", "ETC", "XRP", "LTC", "XMR", "DASH", "MAID", "AUR", "XEM"};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
+        view = inflater.inflate(R.layout.fragment_price, container, false);
         mService = Common.getCoinService();
 
-        fromSpinner = findViewById((R.id.fromSpinner));
-        toSpinner = findViewById((R.id.toSpinner));
-        btnConvert = findViewById(R.id.btnConvert);
-        radioGroup = findViewById(R.id.radioGroup);
-        coin2coin = findViewById(R.id.coin2coin);
-        money2coin = findViewById(R.id.money2coin);
-        coin2money = findViewById(R.id.coin2money);
-        coinImage = findViewById(R.id.coinImage);
-        toTextView = findViewById(R.id.toTextView);
-        price_image_profile = findViewById(R.id.price_image_profile);
-        price_button_graph = findViewById(R.id.price_button_graph);
+        fromSpinner = view.findViewById((R.id.fromSpinner));
+        toSpinner = view.findViewById((R.id.toSpinner));
+        btnConvert = view.findViewById(R.id.btnConvert);
+        radioGroup = view.findViewById(R.id.radioGroup);
+        coin2coin = view.findViewById(R.id.coin2coin);
+        money2coin = view.findViewById(R.id.money2coin);
+        coin2money = view.findViewById(R.id.coin2money);
+        coinImage = view.findViewById(R.id.coinImage);
+        toTextView = view.findViewById(R.id.toTextView);
 
         loadCoinList();
 
         btnConvert.setOnClickListener((view) -> { calculateValue();});
-
-        price_image_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), Profile.class);
-                startActivity(intent);
-            }
-        });
-
-        price_button_graph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -85,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return view;
     }
 
     private void loadCoinList() {
@@ -113,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculateValue() {
-        ProgressDialog mDialog = new ProgressDialog(MainActivity.this);
+        ProgressDialog mDialog = new ProgressDialog(getContext());
         mDialog.setMessage("Please waiting...");
         mDialog.show();
 

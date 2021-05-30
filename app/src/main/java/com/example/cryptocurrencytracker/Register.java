@@ -2,6 +2,7 @@ package com.example.cryptocurrencytracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,9 +12,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
+
+import javax.xml.transform.ErrorListener;
+
+import Model.User;
 
 public class Register extends AppCompatActivity {
 
@@ -155,9 +172,49 @@ public class Register extends AppCompatActivity {
         register_button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"registration was successful",Toast.LENGTH_LONG).show();
-                finish();
+                String username = register_textinput_username.getEditText().getText().toString().trim();
+                String email = register_textinput_email.getEditText().getText().toString().trim();
+                String password = register_textinput_password.getEditText().getText().toString().trim();
+
+                User temp = new User(username, email, password);
+
+                Regist(temp);
             }
         });
+    }
+
+    private void Regist(User temp) {
+
+        String url = "http://192.168.8.106/uasprogtech/register.php";
+        RequestQueue myrequest = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Intent intent = new Intent(getBaseContext(), Login.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("username", temp.getUsername());
+                data.put("email", temp.getEmail());
+                data.put("password", temp.getPassword());
+
+                return data;
+            }
+        };
+
+        myrequest.add(stringRequest);
+
     }
 }

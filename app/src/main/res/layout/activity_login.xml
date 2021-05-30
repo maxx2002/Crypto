@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:backgroundTint="#000000"
+    android:backgroundTint="@color/gray"
     tools:context=".Login">
 
     <ScrollView
@@ -63,7 +63,7 @@
                 android:layout_marginBottom="32dp"
                 android:backgroundTint="#FF9800"
                 android:text="login"
-                android:textColor="#000000"
+                android:textColor="@color/gray"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

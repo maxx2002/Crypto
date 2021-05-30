@@ -9,20 +9,20 @@
         android:icon="@drawable/icon"
         android:label="Cryptocurrency Tracker"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Cryptoconvert">
-        <activity android:name=".Profile"></activity>
+        android:theme="@style/Theme.Cryptoconvert"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".botnavActivity"></activity>
+        <activity android:name=".Profile" />
         <activity android:name=".Register" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
-
-        </activity>
-        <activity android:name=".GraphActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GraphActivity"></activity>
         <activity android:name=".MainActivity" />
     </application>
 
