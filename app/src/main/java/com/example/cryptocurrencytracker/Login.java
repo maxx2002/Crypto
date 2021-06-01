@@ -127,7 +127,7 @@ public class Login extends AppCompatActivity {
     }
     private void getData(String inputemail, String inputpass) {
         final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
-        String url = "http://192.168.100.19/uasprogtech/login.php";
+        String url = "http://192.168.43.224/uasprogtech/login.php";
         RequestQueue myQueue = Volley.newRequestQueue(this);
 
         JSONObject parameter = new JSONObject();
@@ -144,7 +144,7 @@ public class Login extends AppCompatActivity {
                         JSONObject datauser = null;
                         try {
                             datauser = response.getJSONObject("user");
-                            if(inputpass.equals(datauser.getString("pass"))){
+                            if(inputpass.equals(datauser.getString("password"))){
                                 loadingDialog.startLoadingAnimation();
                                 Handler handler = new Handler();
                                 Intent intent = new Intent(getBaseContext(), botnavActivity.class);

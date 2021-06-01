@@ -185,7 +185,7 @@ public class Register extends AppCompatActivity {
 
     private void Regist(User temp) {
 
-        String url = "http://192.168.8.106/uasprogtech/register.php";
+        String url = "http://192.168.43.224/uasprogtech/register.php";
         RequestQueue myrequest = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
