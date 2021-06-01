@@ -10,8 +10,18 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
@@ -29,7 +39,7 @@ public class Login extends AppCompatActivity {
         login_textinput_email = findViewById(R.id.login_textinput_email);
         login_textinput_password = findViewById(R.id.login_textinput_password);
         login_button_login = findViewById(R.id.login_button_login);
-        final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
+
 
         login_button_login.setEnabled(false);
 
@@ -44,16 +54,12 @@ public class Login extends AppCompatActivity {
         login_button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingDialog.startLoadingAnimation();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(getBaseContext(), botnavActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }, 1000);
+                String email = login_textinput_email.getEditText().getText().toString().trim();
+                String password = login_textinput_password.getEditText().getText().toString().trim();
+                getData(email, password);
+
+//
+
             }
         });
 
@@ -118,5 +124,60 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+    private void getData(String inputemail, String inputpass) {
+        final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
+        String url = "http://192.168.100.19/uasprogtech/login.php";
+        RequestQueue myQueue = Volley.newRequestQueue(this);
+
+        JSONObject parameter = new JSONObject();
+        try {
+            parameter.put("email", inputemail);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, parameter,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        JSONObject datauser = null;
+                        try {
+                            datauser = response.getJSONObject("user");
+                            if(inputpass.equals(datauser.getString("pass"))){
+                                loadingDialog.startLoadingAnimation();
+                                Handler handler = new Handler();
+                                Intent intent = new Intent(getBaseContext(), botnavActivity.class);
+                                intent.putExtra("username", datauser.getString("username"));
+                                intent.putExtra("email", datauser.getString("email"));
+                                handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+
+                                                startActivity(intent);
+                                                finish();
+
+                                        }
+                                    }, 1000);
+
+                            }else{
+                                Toast.makeText(getBaseContext(), "Wrong Email or Password", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+
+
+        );
+        myQueue.add(request);
     }
 }

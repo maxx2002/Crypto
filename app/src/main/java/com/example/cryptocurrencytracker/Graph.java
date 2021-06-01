@@ -33,6 +33,7 @@ public class Graph {
 
     Context context;
     LineChart lineChart;
+    protected int number1, number2;
 
     public Graph(LineChart lineChart) {
         this.lineChart = lineChart;
@@ -65,6 +66,8 @@ public class Graph {
                                 entries.add(new Entry(Float.valueOf(_date[i]), _close[i]));
                             }
                             DisplayLineGraph(entries);
+                            number1 = _close[(jsonArray.length()-1)];
+                            number2 = _close[(jsonArray.length()-2)];
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -146,6 +149,13 @@ public class Graph {
 
         return _12HourSDF.format(_24HourDT);
     }
+    public int balikdata2(){
+        return number2;
+    }
+    public int balikdata1(){
+        return number1;
+    }
+
 
 }
 

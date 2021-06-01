@@ -11,8 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cryptoconvert"
         android:usesCleartextTraffic="true">
-        <activity android:name=".botnavActivity"></activity>
-        <activity android:name=".Profile" />
+        <activity android:name=".botnavActivity">
+
+        </activity>
+        <activity android:name=".ProfileFragment" />
         <activity android:name=".Register" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
@@ -22,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GraphActivity"></activity>
+        <activity android:name=".GraphFragment"></activity>
         <activity android:name=".MainActivity" />
     </application>
 

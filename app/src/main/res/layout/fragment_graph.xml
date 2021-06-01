@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GraphActivity">
+    tools:context=".GraphFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -73,7 +73,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
                 android:textColor="@color/orange"
                 app:layout_constraintStart_toStartOf="@+id/graph_spinner"
                 app:layout_constraintTop_toBottomOf="@+id/graph_spinner" />
@@ -82,12 +81,19 @@
                 android:id="@+id/graph_textView_selisih"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="TextView"
                 android:textColor="@color/orange"
                 app:layout_constraintBottom_toBottomOf="@+id/graph_textView_price"
-                app:layout_constraintStart_toEndOf="@+id/graph_textView_price"
+                app:layout_constraintStart_toEndOf="@+id/graph_imageview"
                 app:layout_constraintTop_toTopOf="@+id/graph_textView_price" />
+
+            <ImageView
+                android:id="@+id/graph_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/graph_textView_price"
+                app:layout_constraintTop_toTopOf="@+id/graph_textView_price"
+                app:srcCompat="@drawable/ic_action_naik" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

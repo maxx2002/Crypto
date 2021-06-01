@@ -29,6 +29,12 @@ public class ProfileFragment extends Fragment {
         profile_text_username = view.findViewById(R.id.profile_text_username);
         profile_button_logout = view.findViewById(R.id.profile_button_logout);
 
+
+        profile_text_email.setText(getActivity().getIntent().getStringExtra("email").toString());
+        profile_text_username.setText(getActivity().getIntent().getStringExtra("username").toString());
+
+
+
         profile_button_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
