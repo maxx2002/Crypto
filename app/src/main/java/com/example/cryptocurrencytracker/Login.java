@@ -127,7 +127,7 @@ public class Login extends AppCompatActivity {
     }
     private void getData(String inputemail, String inputpass) {
         final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
-        String url = "http://192.168.100.19/uasprogtech/login.php";
+        String url = "http://192.168.43.224/uasprogtech/login.php";
         RequestQueue myQueue = Volley.newRequestQueue(this);
 
         JSONObject parameter = new JSONObject();
