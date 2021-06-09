@@ -77,7 +77,7 @@ public class Register extends AppCompatActivity {
                     validate_password = false;
                 } else {
                     if (!PASSWORD_PATTERN.matcher(password).matches()) {
-                        register_textinput_password.setError("Password must include uppercase, lowercase, number and symbol");
+                        register_textinput_password.setError("Password must include number and minimum 8 characters");
                         validate_password = false;
                     } else {
                         register_textinput_password.setError("");
@@ -185,7 +185,7 @@ public class Register extends AppCompatActivity {
 
     private void Regist(User temp) {
 
-        String url = "http://192.168.8.106/uasprogtech/register.php";
+        String url = "http://192.168.100.19/uasprogtech/register.php";
         RequestQueue myrequest = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

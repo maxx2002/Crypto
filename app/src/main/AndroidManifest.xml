@@ -14,7 +14,6 @@
         <activity android:name=".botnavActivity">
 
         </activity>
-        <activity android:name=".ProfileFragment" />
         <activity android:name=".Register" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
@@ -24,8 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GraphFragment"></activity>
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

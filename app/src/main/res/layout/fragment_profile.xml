@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:backgroundTint="@color/gray"
-    tools:context=".Profile">
+    tools:context=".ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                 android:backgroundTint="#FF9800"
                 android:text="Logout"
                 android:textColor="@color/gray"
-                app:cornerRadius="10dp"
+                app:cornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

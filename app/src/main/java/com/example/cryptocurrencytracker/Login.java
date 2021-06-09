@@ -144,7 +144,7 @@ public class Login extends AppCompatActivity {
                         JSONObject datauser = null;
                         try {
                             datauser = response.getJSONObject("user");
-                            if(inputpass.equals(datauser.getString("pass"))){
+                            if(inputpass.equals(datauser.getString("password"))){
                                 loadingDialog.startLoadingAnimation();
                                 Handler handler = new Handler();
                                 Intent intent = new Intent(getBaseContext(), botnavActivity.class);

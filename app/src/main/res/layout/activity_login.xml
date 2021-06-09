@@ -64,6 +64,7 @@
                 android:backgroundTint="#FF9800"
                 android:text="login"
                 android:textColor="@color/gray"
+                app:cornerRadius="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

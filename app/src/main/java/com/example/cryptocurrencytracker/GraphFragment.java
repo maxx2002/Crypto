@@ -21,12 +21,11 @@ public class GraphFragment extends Fragment {
     private View view;
     LineChart lineChart;
     Graph graph;
-    Button graph_Button_checkgraph;
     MaterialSpinner graph_spinner;
     TextView graph_textView_price, graph_textView_selisih;
     ImageView graph_imageview;
 
-    String[] coin = {"BTC", "ETH", "ETC", "XRP", "LTC", "XMR", "DASH", "MAID", "AUR", "XEM"};
+    String[] coin = {"BTC", "ETH", "ETC", "LTC", "XMR", "DASH"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +33,6 @@ public class GraphFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_graph, container, false);
 
-        graph_Button_checkgraph = view.findViewById(R.id.graph_Button_checkgraph);
         graph_spinner = view.findViewById(R.id.graph_spinner);
         lineChart = view.findViewById(R.id.LineChart);
         graph_textView_price = view.findViewById(R.id.graph_textView_price);
@@ -47,6 +45,15 @@ public class GraphFragment extends Fragment {
 
         graph._lineGraph(getContext(), "BTC");
         graph_imageview.setVisibility(View.INVISIBLE);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                graph_imageview.setVisibility(View.VISIBLE);
+                graph_textView_price.setVisibility(View.VISIBLE);
+                graph_textView_selisih.setVisibility(View.VISIBLE);
+                tampildata();
+            }
+        }, 2000);
 
         graph_spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
@@ -60,20 +67,12 @@ public class GraphFragment extends Fragment {
                     graph._lineGraph(getContext(), "ETH");
                 }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("ETC")){
                     graph._lineGraph(getContext(), "ETC");
-                }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("XRP")){
-                    graph._lineGraph(getContext(), "XRP");
                 }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("LTC")){
                     graph._lineGraph(getContext(), "LTC");
                 }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("XMR")){
                     graph._lineGraph(getContext(), "XMR");
                 }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("DASH")){
                     graph._lineGraph(getContext(), "DASH");
-                }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("MAID")){
-                    graph._lineGraph(getContext(), "MAID");
-                }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("AUR")){
-                    graph._lineGraph(getContext(), "AUR");
-                }else if(graph_spinner.getItems().get(graph_spinner.getSelectedIndex()).toString().equals("XEM")){
-                    graph._lineGraph(getContext(), "XEM");
                 }
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -97,19 +96,21 @@ public class GraphFragment extends Fragment {
         int resultdata1 = 0;
         resultdata2 = graph.balikdata2();
         resultdata1 = graph.balikdata1();
-        graph_textView_price.setText(String.valueOf(resultdata1)+", "+resultdata2);
+        graph_textView_price.setText(String.valueOf("$ "+resultdata1));
         double selisih;
         String persen = "";
-        if(resultdata2 >= resultdata1){
+        if(resultdata2 > resultdata1){
             selisih = (double)((double)((double)(resultdata2-resultdata1))/(resultdata1))*100;
-            persen = (selisih)+"%";
-            graph_textView_selisih.setTextColor(Color.parseColor("#008000"));
-            graph_imageview.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_naik));
-        }else{
-            selisih = (double)((double)((double)(resultdata1-resultdata2))/(resultdata1))*100;
-            persen = "-"+(selisih)+"%";
+            persen = "-"+String.format("%.2f", selisih)+"%";
             graph_textView_selisih.setTextColor(Color.parseColor("#FF0000"));
             graph_imageview.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_turun));
+
+        }else{
+            selisih = (double)((double)((double)(resultdata1-resultdata2))/(resultdata1))*100;
+            persen = String.format("%.2f", selisih)+"%";
+            graph_textView_selisih.setTextColor(Color.parseColor("#008000"));
+            graph_imageview.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_naik));
+
         }
 
         graph_textView_selisih.setText(persen);

@@ -84,6 +84,7 @@
                 android:backgroundTint="#FF9800"
                 android:text="Register"
                 android:textColor="@color/gray"
+                app:cornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_textinput_password" />
